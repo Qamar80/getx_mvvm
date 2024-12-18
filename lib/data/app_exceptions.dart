@@ -27,3 +27,10 @@ class RequestTimeOut extends AppExceptions{
 class SeverException extends AppExceptions{
   SeverException({String? message}) : super(message, 'Internal server error');
 }
+class InvalidUrlException  extends AppExceptions{
+  InvalidUrlException ({String? message}) : super(message, 'Invalid Url error');
+}
+
+class FetchDataException  extends AppExceptions{
+  FetchDataException ({String? message}) : super(message, 'Error while communication');
+}
