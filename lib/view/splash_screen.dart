@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_common/get_reset.dart';
-import 'package:getx_mvvm/res/assets/image_assets.dart';
-import 'package:getx_mvvm/res/components/general_exception.dart';
-import 'package:getx_mvvm/res/components/internet_exception_widget.dart';
-import 'package:getx_mvvm/res/components/round_button.dart';
+import 'package:getx_mvvm/view_model/services/splash_services.dart';
 
 
 class SplashScreen extends StatefulWidget {
@@ -15,22 +12,23 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+
+  SplashServices splashServices =SplashServices();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    splashServices.isLogin();
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    return Text('h'); /* Scaffold(
-       appBar:  AppBar(
-        // title: Text('email_hints'.tr),
-         title: Text('xyz'),
-       ),
-      //body: InternetExceptionWidget(onPress: (){ },),
-     // body: GeneralExceptionWidget(onPress: (){ },),
-      body: Column(
-        children: [
-          RoundButton(title: 'Login', onPress: (){},width: 300,loading: false,),
-          RoundButton(title: 'signUp', onPress: (){}),
-        ],
-      ),
-      // body: const Image(image: AssetImage(ImageAssets.splashScreen)),
-    );*/
+    return Scaffold(
+      backgroundColor: Colors.teal,
+      body: Center(child: Text('welcome_back'.tr,textAlign: TextAlign.center,),),
+    );
+
   }
 }

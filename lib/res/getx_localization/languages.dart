@@ -8,7 +8,12 @@ class Languages extends Translations{
         'en_US': {
           'email_hints': 'Enter email',
           'internet_exception' : 'we`re  unable to show results\nplease check your connection',
-          'general_exception' :'we`re  unable to precess your request\n please try again'
+          'general_exception' :'we`re  unable to precess your request\n please try again',
+          'welcome_back':'Welcome\nBack',
+          'login': 'Login',
+          'email_hint': 'Email',
+          'password_hint': 'Password',
+
         },
     'ur_PK': {
           'email_hints': 'ای میل درج کریں۔'
