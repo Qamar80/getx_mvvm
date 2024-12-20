@@ -1,82 +1,89 @@
 
+
 import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
-import 'package:http/http.dart'as http;
 import 'package:getx_mvvm/data/network/base_api_services.dart';
+import 'package:http/http.dart' as http;
 
 import '../app_exceptions.dart';
 
-class NetworkApiServices extends BaseApiServices{
-  
+class NetworkApiServices extends BaseApiServices {
+
+
   @override
-  Future getApi(String url) async{
-    
-    if(kDebugMode){
+  Future<dynamic> getApi(String url)async{
+
+    if (kDebugMode) {
       print(url);
     }
-    
-    //empty var
-    dynamic responseJson;
-           try{
-             final respnose=await http.get(Uri.parse(url)).timeout(Duration(seconds: 10));
-             //respnose  this have a data
-             // and decode to responseJson but api have a status code we chick it 
-             responseJson=returnResponse(respnose);
-           }on SocketException{
-             throw InternetException;
-           }on RequestTimeOut{
-             throw RequestTimeOut;
-           }
-           return responseJson;
+
+    dynamic responseJson ;
+    try {
+
+      final response = await http.get(Uri.parse(url)).timeout( const Duration(seconds: 10));
+      responseJson  = returnResponse(response) ;
+    }on SocketException {
+      throw InternetException('');
+    }on RequestTimeOut {
+      throw RequestTimeOut('');
+
+    }
+    print(responseJson);
+    return responseJson ;
+
   }
-  
-
-
 
 
   @override
-  Future postApi(var data ,String url) async{
+  Future<dynamic> postApi(var data , String url)async{
 
-    if(kDebugMode){
-      print(data);
+    if (kDebugMode) {
+      print('//////////////jjjjjjjjjjjj'+url);
+      print('/////////////'+data);
+      print("POST Request Data: ${jsonEncode(data)}");
+
     }
-    //empty var
-    dynamic responseJson;
-    try{
-      final respnose=await http.post(Uri.parse(url),
-        body: jsonEncode(data)
-      ).timeout(Duration(seconds: 10));
-      //respnose  this have a data
-      // and decode to responseJson but api have a status code we chick it 
-      responseJson=returnResponse(respnose);
-    }on SocketException{
-      throw InternetException;
-    }on RequestTimeOut{
-      throw RequestTimeOut;
+
+    dynamic responseJson ;
+    try {
+
+      final response = await http.post(Uri.parse(url),
+
+          body: data
+      ).timeout( const Duration(seconds: 10));
+      responseJson  = returnResponse(response) ;
+    }on SocketException {
+      throw InternetException('');
+    }on RequestTimeOut {
+      throw RequestTimeOut('');
+
     }
-    return responseJson;
+    if (kDebugMode) {
+      print(responseJson);
+    }
+    return responseJson ;
+
 
   }
 
-
-  
-
-  dynamic returnResponse( http.Response response){
+  dynamic returnResponse(http.Response response){
+    print(response.body.toString());
     switch(response.statusCode){
       case 200:
-        dynamic responseJson=jsonDecode(response.body);
-        return responseJson;
+        //final List<dynamic> Json = json.decode(response.body);
 
+        dynamic   responseJson  = json.decode(response.body) ;
+       // dynamic responseJson = jsonDecode(response.body);
+        return responseJson ;
       case 400:
-        throw InvalidUrlException;
+        dynamic responseJson = jsonDecode(response.body);
+        return responseJson ;
 
-      default:
-        throw FetchDataException;
+      default :
+        throw FetchDataException('Error accoured while communicating with server '+response.statusCode.toString()) ;
     }
-
   }
-  
-}
 
+}

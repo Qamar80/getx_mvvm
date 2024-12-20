@@ -39,7 +39,7 @@ class _LoginViewState extends State<LoginView> {
               child: Column(
                 children: [
                   TextFormField(
-                    controller: loginVM.emailController,
+                    controller: loginVM.emailController.value,
                     focusNode: loginVM.emailFocusNode.value,
                    validator: (value){
                       if(value!.isEmpty){
@@ -57,7 +57,7 @@ class _LoginViewState extends State<LoginView> {
                   ),
                   const SizedBox(height: 20,),
                   TextFormField(
-                    controller: loginVM.passwordController,
+                    controller: loginVM.passwordController.value,
                     focusNode: loginVM.passwordFocusNode.value,
                    obscureText: true,
                    obscuringCharacter: '*',
@@ -77,20 +77,16 @@ class _LoginViewState extends State<LoginView> {
                 ],
               ),
             ),
-
             const SizedBox(height: 40,),
-            RoundButton(
+            Obx(()=>RoundButton(
                 width: 200,
+                loading: loginVM.loading.value,
                 title: 'login'.tr,
                 onPress: (){
                   if(_formkey.currentState!.validate()){
-
-
+                    loginVM.loginApi();
                   }
-
-
-
-                })
+                }))
           ],
         ),
       ),
