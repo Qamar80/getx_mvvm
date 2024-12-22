@@ -17,20 +17,25 @@ class NetworkApiServices extends BaseApiServices {
     dynamic responseJson;
     try {
       final response = await http.get(Uri.parse(url)).timeout(const Duration(seconds: 10));
+
+
       responseJson = returnResponse(response);
+      if (kDebugMode) {
+       // print('Response Body: ${response.body}');
+      }
     } on SocketException {
       throw InternetException('No Internet connection');
     } on RequestTimeOut {
       throw RequestTimeOut('Request Timeout');
     }
-    print(responseJson);
+   // print(responseJson);
     return responseJson;
   }
 
   @override
   Future<dynamic> postApi(var data, String url) async {
     if (kDebugMode) {
-      print('POST Request Data: ${jsonEncode(data)}');  // Log the JSON encoded data
+      print('POST Request Data: ${jsonEncode(data)}');
     }
 
     dynamic responseJson;
@@ -44,16 +49,17 @@ class NetworkApiServices extends BaseApiServices {
     } on RequestTimeOut {
       throw RequestTimeOut('');
     }
-    print('Response Body: ${responseJson}');
+   // print('Response Body: ${responseJson}');
     return responseJson;
   }
 
   dynamic returnResponse(http.Response response) {
-    print('Response Body: ${response.body.toString()}');
+    //print('Response Body: ${response.body.toString()}');
     switch (response.statusCode) {
       case 200:
         dynamic responseJson = jsonDecode(response.body);
         return responseJson;
+
       case 400:
         dynamic responseJson = jsonDecode(response.body);
         return responseJson;
@@ -61,4 +67,8 @@ class NetworkApiServices extends BaseApiServices {
         throw FetchDataException('Error occurred while communicating with server: ${response.statusCode}');
     }
   }
+
+
+
+
 }
