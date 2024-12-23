@@ -3,7 +3,7 @@
 import 'package:get/get.dart';
 import 'package:getx_mvvm/res/routes/routes_name.dart';
 import 'package:getx_mvvm/view/home/home_view.dart';
-import 'package:getx_mvvm/view/login_view.dart';
+import 'package:getx_mvvm/view/logi/login_view.dart';
 import 'package:getx_mvvm/view/splash_screen.dart';
 
 class AppRoutes{

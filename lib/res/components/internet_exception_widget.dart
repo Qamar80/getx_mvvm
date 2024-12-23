@@ -2,13 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getx_mvvm/res/colors/app_colors.dart';
 
+
+import '../colors/app_colors.dart';
 
 
 class InterNetExceptionWidget extends StatefulWidget {
   final VoidCallback onPress ;
-  const InterNetExceptionWidget({Key? key , required this.onPress}) : super(key: key);
+  const InterNetExceptionWidget({super.key , required this.onPress});
 
   @override
   State<InterNetExceptionWidget> createState() => _InterNetExceptionWidgetState();
@@ -19,11 +20,11 @@ class _InterNetExceptionWidgetState extends State<InterNetExceptionWidget> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height ;
     return  Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         children: [
           SizedBox(height: height * .15 ,),
-          Icon(Icons.cloud_off , color: AppColors.redColor,size: 50,),
+          const Icon(Icons.cloud_off , color: AppColors.redColor,size: 50,),
           Padding(
             padding: const EdgeInsets.only(top: 30),
             child: Center(child: Text('internet_exception'.tr , textAlign: TextAlign.center,)),
